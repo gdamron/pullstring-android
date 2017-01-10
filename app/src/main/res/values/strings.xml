@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SDKTestBed</string>
+    <string name="fpo_message">Lorem ipsum something or other, blah, blah, blah</string>
+    <string name="bot_name">B</string>
+    <string name="you_name">Y</string>
+    <string name="input_hint">Say something…</string>
+    <string name="submit_button">Send</string>
+    <string name="mic_button">Microphone Button</string>
+</resources>
