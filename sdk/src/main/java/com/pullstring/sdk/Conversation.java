@@ -484,6 +484,13 @@ public class Conversation {
             parameters.put("account", account);
         }
 
+        // only add restart_if_modified or if_modified if not default value
+        if (!request.isRestartIfModified()) {
+            parameters.put("restart_if_modified", "false");
+        } else if (request.getIfModifiedAction() != IfModifiedAction.NOTHING) {
+            parameters.put("if_modified", request.getIfModifiedAction().toString());
+        }
+
         return parameters;
     }
 
@@ -505,11 +512,6 @@ public class Conversation {
             String participant = request.getParticipantId();
             if (participant != null && !participant.isEmpty()) {
                 body.put("participant", participant);
-            }
-
-            // default value for restart_if_modified is true, so only add if false
-            if (!request.isRestartIfModified()) {
-                body.put("restart_if_modified", false);
             }
 
             if (parameters != null) {

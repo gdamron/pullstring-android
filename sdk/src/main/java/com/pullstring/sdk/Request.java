@@ -159,6 +159,23 @@ public class Request {
         this.mRestartIfModified = restartIfModified;
     }
 
+    /**
+     * Get the Action to take for a conversation when new content is published
+     * @return Whether the conversation should restart, update while preserving state, or do nothing.
+     */
+    public IfModifiedAction getIfModifiedAction() {
+        return mIfModifiedAction;
+    }
+
+    /**
+     * Set the Action to take for a conversation when new content is published
+     * @param ifModifiedAction Whether the conversation should restart, update while preserving
+     *                         state, or do nothing.
+     */
+    public void setIfModifiedAction(IfModifiedAction ifModifiedAction) {
+        this.mIfModifiedAction = ifModifiedAction;
+    }
+
     public String getAccountId() {
         return mAccountId;
     }
@@ -174,6 +191,7 @@ public class Request {
     private String mLanguage = "en-US";
     private String mLocale;
     private int mTimezoneOffset;
+    private IfModifiedAction mIfModifiedAction = IfModifiedAction.NOTHING;
     private boolean mRestartIfModified = true;
     private String mAccountId;
 }

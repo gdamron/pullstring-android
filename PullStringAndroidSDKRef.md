@@ -29,6 +29,7 @@ The PullString Web API lets you add text or audio conversational capabilities to
 `class `[`Phoneme`](#phoneme) | Describe a single phoneme for an audio response, e.g., to drive automatic lip sync.
 `class `[`VersionInfo`](#versioninfo) | Encapsulates version information for [PullString](#namespace_pullstring)'s Web API.
 `enum `[`BuildType`](#ebuildtype) | The asset build type to request for Web API requests.
+`enum` [`IfModifiedAction`](#eifmodifiedaction) | The Action to take for a conversation when new content is published
 `enum `[`EntityType`](#eentitytype) | Define the list of entity types
 `enum `[`OutputType`](#eoutputtype) | Define the set of outputs that can be returned in a response.
 `enum `[`FeatureName`](#efeaturename) | Define features to check if they are supported.
@@ -377,8 +378,10 @@ Describe the parameters for a request to the [PullString](#namespace_pullstring)
     * [.setLocale(locale)](#request+Locale)
     * [.getTimezoneOffset()](#request+TimezoneOffset)
     * [.setTimezoneOffset(timezoneOffset)](#request+TimezoneOffset)
-    * [.isRestartIfModified()](#request+RestartIfModified)
-    * [.setRestartIfModified(restartIfModified)](#request+RestartIfModified)
+    * [.getIfModifiedAction()](#request+IfModifiedAction)
+    * [.setIfModifiedAction(ifModifiedAction)](#request+IfModifiedAction)
+    * [.isRestartIfModified()](#request+RestartIfModified) *[deprecated]*
+    * [.setRestartIfModified(restartIfModified)](#request+RestartIfModified) *[deprecated]*
 
 ### Methods
 
@@ -424,9 +427,15 @@ Get/set user locale. Default is 'en-US'.
 
 Get/set the value, in seconds, representing the offset in UTC. For example, PST would be -28800.
 
+<a name="request+IfModifiedAction"></a>
+#### `public IfModifiedAction getIfModifiedAction()`
+#### `public void setIfModifiedAction(IfModifiedAction ifModifiedAction)`
+
+Get/set the Action to take for a conversation when new content is published. Default value is [IfModifiedAction.NOTHING](#eifmodifiedaction+Nothing).
+
 <a name="request+RestartIfModified"></a>
 #### `public boolean isRestartIfModified()`
-#### `public void setRestartIfModified(boolea restartifModified)`
+#### `public void setRestartIfModified(boolean restartifModified)`
 
 Get/set whether to restart this conversation when a newer version of the project has been published. Default value is true.
 
@@ -438,6 +447,18 @@ The asset build type to request for Web API requests.
 * [BuildType.PRODUCTION](#ebuildtype+Production) (default)
 * [BuildType.STAGING](#ebuildtype+Staging)
 * [BuildType.SANDBOX](#ebuildtypeSandbox)
+
+<a name="eifmodifiedaction"></a>
+# class EIfModifiedAction
+
+The Action to take for a conversation when new content is published.
+
+* [EIfModifiedAction.RESTART](#eifmodifiedaction+Restart)
+    * The conversation will restart when new content is published.
+* [EIfModifiedAction.UPDATE](#eifmodifiedaction+Update)
+    * The conversation will restart when new content is published while maintaining current state.
+* [EIfModifiedAction.NOTHIN](#eifmodifiedaction+Nothing) (default)
+    * The conversation will not restart when new content is published.
 
 <a name="response"></a>
 # class Response
