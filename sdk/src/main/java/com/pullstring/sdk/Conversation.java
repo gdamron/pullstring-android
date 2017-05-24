@@ -133,6 +133,59 @@ public class Conversation {
     }
 
     /**
+     * Send an intent as user input to the Web API and receive a response via the ResponseListener.
+     * @param intent The name of the intent representing user input.
+     */
+    public void sendIntent(String intent) { sendIntent(intent, null, null); }
+
+    /**
+     * Send an intent as user input to the Web API and receive a response via the ResponseListener.
+     * @param intent The name of the intent representing user input.
+     * @param request A Request object with a valid API key set.
+     */
+    public void sendIntent(String intent, Request request) { sendIntent(intent, null, request);}
+
+    /**
+     * Send an intent as user input to the Web API and receive a response via the ResponseListener.
+     * @param intent The name of the intent representing user input.
+     * @param entities An ArrayList specifying the entities to set (with their new values).
+     */
+    public void sendIntent(String intent, ArrayList<Entity> entities) { sendIntent(intent, entities, null); }
+
+    /**
+     * Send an intent as user input to the Web API and receive a response via the ResponseListener
+     * passed into the constructor.
+     * @param intent The name of the intent representing user input.
+     * @param entities An ArrayList specifying the entities to set (with their new values).
+     * @param request A Request object with a valid API key set.
+     */
+    public void sendIntent(String intent, ArrayList<Entity> entities, Request request) {
+        if (!ensureRequestExists(request)) {
+            return;
+        }
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("intent", intent);
+
+        if (entities != null && !entities.isEmpty()) {
+            JSONObject entDict = new JSONObject();
+
+            try {
+                for (Entity e : entities) {
+                    entDict.putOpt(e.getName(), e.getValue());
+                }
+            } catch (JSONException e) {
+                exitWithFailure(e.getLocalizedMessage());
+                return;
+            }
+
+            body.put("set_entities", entDict);
+        }
+
+        postJson(body);
+    }
+
+    /**
      * Send an activity name or ID to the Web API and receive a response via the ResponseListener
      * passed into the constructor.
      * @param activity The activity name or ID.

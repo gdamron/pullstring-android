@@ -156,6 +156,10 @@ private Timer mNoResponseTimer;
     * [.start(projectName, request)](#conversation+Start)
     * [.sendText(text)](#conversation+SendText)
     * [.sendText(text, request)](#conversation+SendText)
+    * [.sendIntent(intent)](#conversation+SendIntent)
+    * [.sendIntent(intent, request)](#conversation+SendIntent)
+    * [.sendIntent(intent, entities)](#conversation+SendIntent)
+    * [.sendIntent(intent, entities, request)](#conversation+SendIntent)
     * [.sendActivity(activity)](#conversation+SendActivity)
     * [.sendActivity(activity, request)](#conversation+SendActivity)
     * [.sendEvent(event, parameters)](#conversation+SendEvent)
@@ -229,9 +233,22 @@ Send user input text to the Web API and receive a response via the OnResponseRec
 * `text` User input text.
 * `request` [Optional] A request object with at least apiKey and conversationId set.
 
+<a name="conversation+SendIntent"></a>
+#### `public void sendIntent(String intent)`
+#### `public void sendIntent(String intent, `[`Request`](#request)` request)`
+#### `public void sendIntent(String intent, ArrayList<`[`Entity`](#entity)`> entities)`
+#### `public void sendIntent(String intent, ArrayList<`[`Entity`](#entity)`> entities, `[`Request`](#request)` request)`
+
+Send an intent as user input to the Web API and receive a response via the ResponseListener passed into the constructor.
+
+**Parameters**
+* `intent` The name of the intent representing user input.
+* `entities` An ArrayList specifying the entities to set (with their new values).
+* `request` A Request object with a valid API key set.
+
 <a name="conversation+SendActivity"></a>
 #### `public void sendActivity(String activity)`
-#### `public void sendActivity(String activity,`[`Request`](#request)` request)`
+#### `public void sendActivity(String activity, `[`Request`](#request)` request)`
 
 Send an activity name or ID to the Web API and receive a response via the OnResponseReceived event.
 
